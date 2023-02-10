@@ -6,6 +6,9 @@ router.use(bodyParser.urlencoded({ extended: false }));
 router.use(bodyParser.json());
 const User=require("../models/User");
 const { body, validationResult } = require('express-validator');
+const jwt=require("jsonwebtoken");
+const env=require("dotenv");
+env.config();
 
 
 
@@ -67,5 +70,59 @@ router.post("/register",body("name").isLength({min:5,max:10}),body("email").isEm
 })
 
 //LOGIN
+router.post("/login",body("email").isEmail(),body("password").isLength({min:5,max:12}), async (req,res)=>{
+    try{
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            
+          return res.status(400).json({ errors: errors.array() });
+        }
+        const {email,password}=req.body;
+    const user= await User.findOne({email});
+    //if user is not present in database...
+    if(!user)
+    {
+        return res.status(200).json({
+            status:"failed",
+            message:"user should register"
+        }) 
+    }
+   //if user is present we are checking weather the credentials are matching and generating web token accordingly...
+        bcrypt.compare(password, user.password, function(err, result) {
+            if(err){
+                return res.status(500).json({
+                    status:"failed",
+                    message:err.message
+                })
+            }
+            if(result){
+                const token=jwt.sign({
+                    exp: Math.floor(Date.now() / 1000) + (60 * 60),// 1 hour
+                    data: user._id
+                  }, process.env.SECRET);
+                return res.status(200).json({
+                    status:"success",
+                    message:"user logged in",
+                    token
+                })
+            }
+            else{
+                res.status(400).json({
+                    status:"failed",
+                    message:"invalid credentials"
+                })
+            }
+        });
+    
+    }
+    catch(e){
+         res.status(400).json({
+            status:"failed",
+            message:e.message
+        })
+    }
+})
+
+
 
 module.exports=router;
