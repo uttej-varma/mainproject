@@ -1,13 +1,15 @@
 const express=require("express");
 const app=express();
 const conn=require("./databaseConnection/connect");
+const cors=require("cors")
 conn();
 const reglog=require("./routes/registerlogin");
 
 const env=require("dotenv");
 env.config();
 const laundOrder=require("./routes/orders");
-const tokenVerification=require("./verifytokenfunction/verify")
+const tokenVerification=require("./verifytokenfunction/verify");
+app.use(cors());
 
 
 //middle wear for verifying token before uploading orders to database 

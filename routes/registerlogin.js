@@ -103,6 +103,7 @@ router.post("/login",body("email").isEmail(),body("password").isLength({min:5,ma
                 return res.status(200).json({
                     status:"success",
                     message:"user logged in",
+                    id:user._id,
                     token
                 })
             }
