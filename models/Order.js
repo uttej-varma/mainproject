@@ -3,63 +3,15 @@ const Schema=mongoose.Schema;
 const ObjectId=Schema.ObjectId;
 const orderSchema=new Schema({
     user:{type:ObjectId,ref:"User"},
-    shirts: {
-        quantity: { type: Number,default:0  },
-        price:{type:Number,default:0},
-        washing: { type: Boolean,default:false },
-        ironing: { type: Boolean,default:false },
-        drycleaning: { type: Boolean,default:false },
-        chemicalcleaning: { type: Boolean,default:false },
-      },
-      tshirts: {
-        quantity: { type: Number,default:0   },
-        price:{type:Number,default:0},
-        washing: { type: Boolean,default:false },
-        ironing: { type: Boolean,default:false },
-        drying: { type: Boolean,default:false },
-        chemicalcleaning: { type: Boolean,default:false },
-      },
-      trousers: {
-        quantity: { type: Number,default:0   },
-        price:{type:Number,default:0},
-        washing: { type: Boolean,default:false },
-        ironing: { type: Boolean,default:false },
-        drycleaning: { type: Boolean,default:false },
-        chemicalcleaning: { type: Boolean,default:false },
-      },
-      jeans: {
-        quantity: { type: Number,default:0   },
-        price:{type:Number,default:0},
-        washing: { type: Boolean,default:false },
-        ironing: { type: Boolean,default:false },
-        drycleaning: { type: Boolean,default:false },
-        chemicalcleaning: { type: Boolean,default:false },
-      },
-      boxers: {
-        quantity: { type: Number,default:0   },
-        price:{type:Number,default:0},
-        washing: { type: Boolean,default:false },
-        ironing: { type: Boolean,default:false },
-        drying: { type: Boolean,default:false },
-        chemicalcleaning: { type: Boolean,default:false },
-      },
-      joggers: {
-        quantity: { type: Number,default:0   },
-        price:{type:Number,default:0},
-        washing: { type: Boolean,default:false },
-        ironing: { type: Boolean,default:false },
-        drywashing: { type: Boolean,default:false },
-        chemicalcleaning: { type: Boolean,default:false },
-      },
-      others: {
-        quantity: { type: Number,default:0   },
-        price:{type:Number,default:0},
-        washing: { type: Boolean,default:false },
-        ironing: { type: Boolean, default:false},
-        drycleaning: { type: Boolean,default:false },
-        chemicalcleaning: { type: Boolean,default:false },
-      }
-  
+    location:{type:String,default:''},
+        city:{type:String,default:''},
+        totalItems:{type:Number,default:0},
+        totalPrice:{type:Number,default:0},
+        summary:{
+            address:{type:String,default:'jakeNagar,bangalore'},
+            body:{type:Object,default:{}},
+            userName:{type:String,default:'you'},
+        }
 },{timestamps:Date});
 
 const orderModel=mongoose.model("Order",orderSchema);
