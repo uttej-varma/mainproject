@@ -57,7 +57,7 @@ router.post("/register",body("name").isLength({min:5,max:10}),body("email").isEm
         })
         res.status(201).json({
             message:"registered successfully",
-            dataafterhash
+            
         })
     });
     }
@@ -70,13 +70,9 @@ router.post("/register",body("name").isLength({min:5,max:10}),body("email").isEm
 })
 
 //LOGIN
-router.post("/login",body("email").isEmail(),body("password").isLength({min:5,max:12}), async (req,res)=>{
+router.post("/login", async (req,res)=>{
     try{
-        const errors = validationResult(req);
-        if (!errors.isEmpty()) {
-            
-          return res.status(400).json({ errors: errors.array() });
-        }
+       
         const {email,password}=req.body;
     const user= await User.findOne({email});
     //if user is not present in database...
@@ -104,7 +100,10 @@ router.post("/login",body("email").isEmail(),body("password").isLength({min:5,ma
                     status:"success",
                     message:"user logged in",
                     id:user._id,
-                    token
+                    token,
+                    address:user.address,
+                    location:user.district,
+                    userName:user.name
                 })
             }
             else{

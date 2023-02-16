@@ -8,14 +8,12 @@ const Order=require("../models/Order");
 router.post("/",async(req,res)=>{
     try{
         const data=await Order.create({
-            shirts:req.body.shirts,
-            tshirts:req.body.tshirts,
-            trousers:req.body.trousers,
-            jeans:req.body.jeans,
-            boxers:req.body.boxers,
-            joggers:req.body.joggers,
-            others:req.body.others,
-            user:req.user
+        location:req.body.location,
+        city:req.body.city,
+        totalItems:req.body.totalItems,
+        totalPrice:req.body.totalPrice,
+        summary:req.body.summary,
+        user:req.user
         });
         res.status(201).json({
             message:"order placed successfully",

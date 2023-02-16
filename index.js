@@ -16,12 +16,12 @@ app.use(cors());
 app.post("/api/v1/user/order",(req,res,next)=>{
     tokenVerification(req,res,next);
 });
-app.get("/api/v1/user/order",(req,res,next)=>{
-    tokenVerification(req,res,next);
-});
-app.delete("/api/v1/user/order",(req,res,next)=>{
-    tokenVerification(req,res,next);
-})
+// app.get("/api/v1/user/order",(req,res,next)=>{
+//     tokenVerification(req,res,next);
+// });
+// app.delete("/api/v1/user/order",(req,res,next)=>{
+//     tokenVerification(req,res,next);
+// })
 
 app.use("/api/v1/user",reglog);
 app.use("/api/v1/user/order",laundOrder);
